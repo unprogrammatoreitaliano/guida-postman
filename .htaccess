@@ -1,0 +1,10 @@
+#Rewrite everything to https
+
+RewriteEngine On
+
+RewriteRule ^api/([^/.]+)/?$ /guida-postman/index.php?$1=true [L]
+RewriteRule ^api/testvisibilita/([^/.]+)/?$ /guida-postman/index.php?testvisibilita=true&messaggio=$1 [L]
+
+<IfModule mod_headers.c>
+    Header set Access-Control-Allow-Origin "*"
+</IfModule>
