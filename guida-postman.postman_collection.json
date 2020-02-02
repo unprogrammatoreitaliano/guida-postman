@@ -1,0 +1,179 @@
+{
+	"info": {
+		"_postman_id": "587e2a5f-ee77-461f-be7e-57df3a6d859c",
+		"name": "guida-postman",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get Constants",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{endpoint}}/getconstants",
+					"host": [
+						"{{endpoint}}"
+					],
+					"path": [
+						"getconstants"
+					]
+				},
+				"description": "ottieni tutte le costanti"
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "4a6dc8c7-b2c9-4417-87bc-e27e1d2ce17a",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "94a06494-f6ef-4ee3-a65b-bc005fa066ca",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"",
+							"if(jsonData.esito === true){",
+							"    ",
+							"  pm.environment.set(\"userId\", jsonData.userId);",
+							"  ",
+							"  pm.environment.set(\"tempToken\", jsonData.tempToken);  ",
+							"  ",
+							"}",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\" : \"user\",\n\t\"password\" : \"user\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{endpoint}}/login",
+					"host": [
+						"{{endpoint}}"
+					],
+					"path": [
+						"login"
+					]
+				},
+				"description": "Rilascio del token"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Token",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"userId\"     : {{userId}},\n\t\"tempToken\"  : \"{{tempToken}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{endpoint}}/gettoken",
+					"host": [
+						"{{endpoint}}"
+					],
+					"path": [
+						"gettoken"
+					]
+				},
+				"description": "Ottenimento del token con parametri userId e tempToken"
+			},
+			"response": []
+		},
+		{
+			"name": "Test Visibilità",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{endpoint}}/testvisibilita/qualcosa",
+					"host": [
+						"{{endpoint}}"
+					],
+					"path": [
+						"testvisibilita",
+						"qualcosa"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Check Token",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"token\": \"{{token}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{endpoint}}/checktoken",
+					"host": [
+						"{{endpoint}}"
+					],
+					"path": [
+						"checktoken"
+					]
+				},
+				"description": "verifica se il token che hai è corretto"
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
